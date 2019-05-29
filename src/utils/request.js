@@ -61,22 +61,3 @@ export default function request(url, options) {
     .then(checkStatus)
     .then(parseJSON);
 }
-
-// export const callApiJson = ({ endpoint, method, headers, data, decamlizeInput = true }) => {
-//   const finalMethod = (method || 'GET').toUpperCase();
-
-//   const finalsHeaders = {
-//     ...headers,
-//     'Content-Type': 'application/json',
-//   };
-
-//   return callApiRaw({
-//     endpoint,
-//     method: finalMethod,
-//     headers: finalsHeaders,
-//     body:
-//       finalMethod !== 'GET'
-//         ? JSON.stringify(decamlizeInput ? decamelizeKeys({ ...data }) : data)
-//         : undefined,
-//   });
-// };

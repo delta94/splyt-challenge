@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
-import { Container, Row, Col, Popover, OverlayTrigger, Button } from 'react-bootstrap';
+import { Container, Row, Col, Alert } from 'react-bootstrap';
 import GoogleMapReact from 'google-map-react';
 
-import styled from 'styled-components';
+import {
+  makeSelectSplytDrivers,
+  makeSelectLoading,
+  makeSelectError,
+  makeSelectLocation,
+} from './selectors';
 
+import { setLocation, getSplytDriversStart } from './actions';
+
+import styled from 'styled-components';
 import SplytIcon from 'app/components/SplytIcon';
 import TaxiIcon from 'app/components/TaxiIcon';
 
@@ -20,43 +29,75 @@ const MapWrapper = styled.div`
   width: 100%;
 `;
 
-// latitude: 51.5049375,
-// longitude: -0.0964509,
-
 const Map = props => {
-  console.log('MAP', props);
-  const [defaultCenter, setDefaultCenter] = useState({
-    lat: 51.5049375,
-    lng: -0.0964509,
-  });
+  const { loading, error, location, drivers, getDrivers, setLocation } = props;
+  const hasDrivers = drivers && drivers.length;
+  const [showError, setShowError] = useState(!!error);
 
-  const handleApiLoaded = props => {
-    console.log('PROPS', props);
-  };
+  useEffect(() => {
+    getDrivers();
+  }, [getDrivers, location.latitude, location.longitude]);
 
   const handleClick = props => {
-    const { lat, lng, x, y } = props;
-    console.log('CLICK PROPS', props);
-    setDefaultCenter({
-      lat,
-      lng,
+    const { lat, lng } = props;
+
+    setLocation({
+      location: {
+        latitude: lat,
+        longitude: lng,
+      },
     });
+  };
+
+  const handleDismiss = () => {
+    setShowError(false);
   };
 
   return (
     <Container>
-      <Row>
-        <Col xs={12}>
+      {showError && (
+        <Row className="pb-4">
+          <Col xs={12}>
+            <Alert variant="danger" onClose={handleDismiss} dismissible>
+              <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+              {error}
+            </Alert>
+          </Col>
+        </Row>
+      )}
+
+      <Row className="justify-content-center">
+        <Col className="text-center" xs={12}>
           <MapWrapper>
             <GoogleMapReact
               yesIWantToUseGoogleMapApiInternals
-              onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
               bootstrapURLKeys={{ key: GOOGLE_API_KEY }}
-              defaultCenter={defaultCenter}
-              defaultZoom={11}
+              center={{
+                lat: location.latitude,
+                lng: location.longitude,
+              }}
+              defaultZoom={14}
               onClick={handleClick}
             >
-              <SplytIcon {...defaultCenter} text="Split Office" />
+              {loading ? (
+                <i
+                  lat={location.latitude}
+                  lng={location.longitude}
+                  className="fas fa-spinner fa-pulse fa-3x"
+                />
+              ) : (
+                <SplytIcon lat={location.latitude} lng={location.longitude} text="Split Office" />
+              )}
+
+              {hasDrivers &&
+                drivers.map(driver => (
+                  <TaxiIcon
+                    key={driver.driver_id}
+                    id={driver.driver_id}
+                    lat={driver.location.latitude}
+                    lng={driver.location.longitude}
+                  />
+                ))}
             </GoogleMapReact>
           </MapWrapper>
         </Col>
@@ -65,18 +106,39 @@ const Map = props => {
   );
 };
 
-Map.propTypes = {};
+Map.propTypes = {
+  loading: PropTypes.bool,
+  // error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  location: PropTypes.shape({
+    latitude: PropTypes.number,
+    longitude: PropTypes.number,
+  }),
+  drivers: PropTypes.array,
+  setLocation: PropTypes.func,
+  getDrivers: PropTypes.func,
+};
 
-const mapStateToProps = (state, props) => {
-  // here we select the data we get from store
+const mapStateToProps = createStructuredSelector({
+  loading: makeSelectLoading(),
+  error: makeSelectError(),
+  drivers: makeSelectSplytDrivers(),
+  location: makeSelectLocation(),
+});
+
+const mapDispatchToProps = dispatch => {
   return {
-    number: 1,
+    getDrivers: () => {
+      dispatch(getSplytDriversStart());
+    },
+    setLocation: ({ location }) => {
+      dispatch(setLocation({ location }));
+    },
   };
 };
 
 const withConnect = connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
 );
 
 export default compose(withConnect)(Map);

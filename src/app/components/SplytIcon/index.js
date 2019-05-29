@@ -15,7 +15,7 @@ const SplytIcon = props => {
               <strong>Latitude:</strong> {lat}
             </li>
             <li>
-              <strong>Longtitude:</strong> {lng}
+              <strong>Longitude:</strong> {lng}
             </li>
           </ul>
         </Popover>

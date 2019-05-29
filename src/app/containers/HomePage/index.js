@@ -9,9 +9,10 @@ import reducer from './reducer';
 import saga from './saga';
 import { getSplytDriversStart } from './actions';
 
+import Slider from './Slider';
 import Map from './Map';
 
-const key = 'Home';
+const key = 'home';
 
 const HomePage = props => {
   const { getSplytDrivers } = props;
@@ -20,7 +21,6 @@ const HomePage = props => {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
   useEffect(() => {
-    // call action to get movies
     getSplytDrivers();
   }, [getSplytDrivers]);
 
@@ -33,6 +33,7 @@ const HomePage = props => {
           </Col>
         </Row>
       </Container>
+      <Slider />
       <Map />
     </Fragment>
   );
@@ -43,12 +44,6 @@ HomePage.propTypes = {
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 };
 
-const mapStateToProps = (state, props) => {
-  return {
-    number: 1,
-  };
-};
-
 const mapDispatchToProps = dispatch => {
   return {
     getSplytDrivers: () => {
@@ -57,12 +52,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-// const withConnect = connect(
-//   mapStateToProps,
-//   mapDispatchToProps,
-// );
-
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps,
 )(HomePage);
