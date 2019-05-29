@@ -21,7 +21,6 @@ amount of drivers displayed on the map. The range should be 1-50.
 - [Injected Redux Pattern by react-boilerplate team](https://www.reactboilerplate.com/)
 - [React Google Map](https://github.com/google-map-react/google-map-react)
 - [React Slider](https://github.com/react-component/slider)
-- [Redux](https://redux.js.org/introduction/getting-started)
 
 ## Setup
 
