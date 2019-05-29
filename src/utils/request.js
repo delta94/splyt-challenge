@@ -32,20 +32,27 @@ function checkStatus(response) {
  * @return {object}           The response data
  */
 
-export const methodTypes = {
-  get: 'get',
-  post: 'post',
+export const METHOD_TYPES = {
+  GET: 'GET',
+  POST: 'POST',
 };
 
-export const methodOptions = (
-  method,
-  headers = { 'Access-Control-Request-Headers': '*', 'Access-Control-Request-Method': '*' },
-  body,
-) => {
+export const methodOptions = (method, headers, body) => {
+  const finalMethod = (method || 'GET').toUpperCase();
+  const finalsHeaders = {
+    'Access-Control-Allow-Credentials': true,
+    // 'Access-Control-Allow-Origin': ,
+    // 'Access-Control-Allow-Methods': 'GET',
+    'Content-Type': 'application/json',
+    Origin: 'http://localhost:3000',
+    ...headers,
+  };
+
   return {
-    method,
-    headers,
-    body,
+    method: finalMethod,
+    headers: finalsHeaders,
+    // mode: 'no-cors',
+    // body,
   };
 };
 
@@ -54,3 +61,22 @@ export default function request(url, options) {
     .then(checkStatus)
     .then(parseJSON);
 }
+
+// export const callApiJson = ({ endpoint, method, headers, data, decamlizeInput = true }) => {
+//   const finalMethod = (method || 'GET').toUpperCase();
+
+//   const finalsHeaders = {
+//     ...headers,
+//     'Content-Type': 'application/json',
+//   };
+
+//   return callApiRaw({
+//     endpoint,
+//     method: finalMethod,
+//     headers: finalsHeaders,
+//     body:
+//       finalMethod !== 'GET'
+//         ? JSON.stringify(decamlizeInput ? decamelizeKeys({ ...data }) : data)
+//         : undefined,
+//   });
+// };
