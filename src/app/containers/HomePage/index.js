@@ -1,58 +1,44 @@
-import React from 'react';
+import React, { useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
-
 import { Container, Row, Col } from 'react-bootstrap';
-import styled, { keyframes } from 'styled-components';
 
 import { useInjectReducer } from 'utils/injectReducer';
+import { useInjectSaga } from 'utils/injectSaga';
 import reducer from './reducer';
-// import { useInjectSaga } from 'utils/injectSaga';
-import ReactLogo from 'resources/images/react-logo.png';
-import ReduxLogo from 'resources/images/redux-logo.png';
+import saga from './saga';
+import { getSplytDriversStart } from './actions';
 
-const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
+import Map from './Map';
 
-  to {
-    transform: rotate(360deg);
-  }
-`;
+const key = 'Home';
 
-const Rotate = styled.div`
-  display: inline-block;
-  animation: ${rotate} 5s linear infinite;
-`;
-
-const Home = props => {
-  console.log(props);
-  useInjectReducer({ key: 'Home', reducer });
+const HomePage = props => {
+  const { getSplytDrivers } = props;
+  // @dev useInjectReducer before other react hooks function
+  // @dev useInjectSaga before other react hooks function
+  useInjectReducer({ key, reducer });
+  useInjectSaga({ key, saga });
+  useEffect(() => {
+    // call action to get movies
+    getSplytDrivers();
+  }, [getSplytDrivers]);
 
   return (
-    <Container className="text-white pt-5">
-      <Row className="justify-content-center text-center">
-        <Col className="pb-5" xs={12}>
-          <h1>React Redux Saga Boilerplate</h1>
-        </Col>
-      </Row>
-      <Row className="text-center justify-content-center pt-5">
-        <Col xs={6}>
-          <Rotate>
-            <img src={ReactLogo} alt="react-logo" height="150" />
-          </Rotate>
-          <Rotate>
-            <img src={ReduxLogo} alt="react-logo" height="150" />
-          </Rotate>
-        </Col>
-      </Row>
-    </Container>
+    <Fragment>
+      <Container className="text-white pt-5">
+        <Row className="justify-content-center text-center">
+          <Col className="pb-5" xs={12}>
+            <h1>Splyt Challenge</h1>
+          </Col>
+        </Row>
+      </Container>
+      <Map />
+    </Fragment>
   );
 };
 
-Home.propTypes = {
+HomePage.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 };
@@ -63,9 +49,20 @@ const mapStateToProps = (state, props) => {
   };
 };
 
-const withConnect = connect(
-  mapStateToProps,
-  null,
-);
+const mapDispatchToProps = dispatch => {
+  return {
+    getSplytDrivers: () => {
+      dispatch(getSplytDriversStart());
+    },
+  };
+};
 
-export default compose(withConnect)(Home);
+// const withConnect = connect(
+//   mapStateToProps,
+//   mapDispatchToProps,
+// );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(HomePage);
