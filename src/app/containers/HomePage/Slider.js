@@ -47,7 +47,7 @@ const Slider = props => {
         <Col xs={12}>
           <Card>
             <Card.Body>
-              <div className="pb-3">Available Taxi Drivers: {count}</div>
+              <div className="pb-3">Taxi Drivers: {count}</div>
 
               <RCSlider
                 min={1}

@@ -1,51 +1,37 @@
-# react-redux-saga-boilerplate
+# Splyt Challenge
 
-A lightweight react redux saga boilerplate
+The task is to create a single page Javascript application using React.
+The page should feature a map. The map should show markers illustrating
+the up-to-date locations of on-demand taxis in the area.
+You can centre the map on the location of Splyt's office,
+51.5049375,-0.0964509.
+The page should also feature a UI slider, that enables you to change the
+amount of drivers displayed on the map. The range should be 1-50.
 
 ## Features
 
-### Quick scaffolding
+- [React with Hooks V16^](https://reactjs.org/)
+- [Redux](https://redux.js.org/introduction/getting-started)
 
-Create components, containers, routes, selectors and sagas right from the CLI!
+- [Redux-Saga](https://redux-saga.js.org/docs/introduction/BeginnerTutorial.html)
+- [Injected Redux Pattern by react-boilerplate team](https://www.reactboilerplate.com/)
+- [React Google Map](https://github.com/google-map-react/google-map-react)
+- [React Slider](https://github.com/react-component/slider)
+- [Redux](https://redux.js.org/introduction/getting-started)
 
-### Absolute Import Path
+## Setup
 
-You can absolute import `import { Button } from 'components/button'`
+### Environment
 
-### Component-centric splitting
+- Make sure to have Node V8 or above installed.
 
-Build with `react-loadable` a higher-order component (a function that creates a component) which lets you dynamically load any module before rendering it into your app.
+## Instructions
 
-### Out of the box React Ui/Css framework (React-bootstrap)
+- Open terminal and do a git clone `git clone https://github.com/54M5M17H/splyt-challenge.git`
+- Run `yarn` to install dependencies
+- To start `yarn start` will open browser on `http://localhost:3000`
+- Enjoy playing with the slider!!!
 
-By default we're using [react-boostrap](https://react-bootstrap.github.io) for our react ui framework.
+## Have Fun!
 
-### Styling (SASS, styled-components)
-
-This project bootstrap using Create React App. Check the styling guide below.
-[Create React App Styling Guide](https://facebook.github.io/create-react-app/docs/adding-a-sass-stylesheet)
-
-1. SASS
-
-To use Sass, first install node-sass:
-
-```
-$ npm install node-sass --save
-$ # or
-$ yarn add node-sass
-```
-
-Now you can rename src/App.css to src/App.scss and update src/App.js to import src/App.scss. This file and any other file will be automatically compiled if imported with the extension .scss or .sass.
-
-To share variables between Sass files, you can use Sass imports. For example, src/App.scss and other component style files could include @import "./shared.scss"; with variable definitions.
-
-This will allow you to do imports like
-
-```
-@import 'styles/_colors.scss'; // assuming a styles directory under src/
-@import '~nprogress/nprogress'; // importing a css file from the nprogress node module
-```
-
-2. Styled Components
-
-By default code generator give you an option to use styled-components
+![Coder](https://media.giphy.com/media/QNFhOolVeCzPQ2Mx85/giphy.gif)

@@ -20,7 +20,6 @@ import styled from 'styled-components';
 import SplytIcon from 'app/components/SplytIcon';
 import TaxiIcon from 'app/components/TaxiIcon';
 
-// ('AIzaSyDVwABhFeesm-9hrtbrD6IqTOE1wVApeGE');
 const GOOGLE_API_KEY =
   process.env.REACT_APP_GOOGLE_API_KEY || 'AIzaSyDVwABhFeesm-9hrtbrD6IqTOE1wVApeGE';
 
