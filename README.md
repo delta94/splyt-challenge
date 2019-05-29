@@ -8,6 +8,10 @@ You can centre the map on the location of Splyt's office,
 The page should also feature a UI slider, that enables you to change the
 amount of drivers displayed on the map. The range should be 1-50.
 
+## Demo
+
+![](splyt-challenge.gif)
+
 ## Features
 
 - [React with Hooks V16^](https://reactjs.org/)
