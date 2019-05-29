@@ -17,6 +17,7 @@ const MoviesPage = props => {
   const { getMovies } = props;
   // @dev useInjectReducer before other react hooks function
   // @dev useInjectSaga before other react hooks function
+
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
   useEffect(() => {
