@@ -16,7 +16,6 @@ amount of drivers displayed on the map. The range should be 1-50.
 
 - [React with Hooks V16^](https://reactjs.org/)
 - [Redux](https://redux.js.org/introduction/getting-started)
-
 - [Redux-Saga](https://redux-saga.js.org/docs/introduction/BeginnerTutorial.html)
 - [Injected Redux Pattern by react-boilerplate team](https://www.reactboilerplate.com/)
 - [React Google Map](https://github.com/google-map-react/google-map-react)
@@ -31,6 +30,7 @@ amount of drivers displayed on the map. The range should be 1-50.
 ## Instructions
 
 - Open terminal and do a git clone `git clone https://github.com/54M5M17H/splyt-challenge.git`
+- `cd splyt-challenge`
 - Run `yarn` to install dependencies
 - To start `yarn start` will open browser on `http://localhost:3000`
 - Enjoy playing with the slider!!!
