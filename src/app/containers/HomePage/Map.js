@@ -107,7 +107,6 @@ const Map = props => {
 
 Map.propTypes = {
   loading: PropTypes.bool,
-  // error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   location: PropTypes.shape({
     latitude: PropTypes.number,
     longitude: PropTypes.number,
